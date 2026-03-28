@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lumière — Fashion & Style</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --rose: #E8517A;
+    --rose-light: #F9D0DC;
+    --rose-pale: #FFF0F4;
+    --gold: #C9A96E;
+    --gold-light: #F5ECD7;
+    --charcoal: #1C1C1E;
+    --warm-white: #FDFAF7;
+    --muted: #8A7F7F;
+    --ff-display: 'Playfair Display', Georgia, serif;
+    --ff-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--ff-body); background: var(--warm-white); color: var(--charcoal); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4vw; height: 68px;
+    background: rgba(253,250,247,0.88); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(201,169,110,0.2);
+  }
+  .nav-logo { font-family: var(--ff-display); font-size: 1.6rem; font-style: italic; color: var(--charcoal); text-decoration: none; letter-spacing: 0.02em; }
+  .nav-logo span { color: var(--rose); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--charcoal); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--rose); }
+  .nav-right { display: flex; gap: 1rem; align-items: center; }
+  .nav-icon { width: 22px; height: 22px; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; }
+  .nav-icon:hover { opacity: 1; }
+  .cart-badge { position: relative; }
+  .cart-badge::after { content: '3'; position: absolute; top: -6px; right: -8px; background: var(--rose); color: #fff; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 68px; overflow: hidden;
+  }
+  .hero-text {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 6vw 4rem 8vw;
+    background: var(--warm-white);
+    position: relative;
+  }
+  .hero-text::before {
+    content: 'SS25'; position: absolute; top: 6rem; right: -1.5rem;
+    font-family: var(--ff-display); font-size: 7rem; color: var(--rose-light);
+    font-style: italic; line-height: 1; z-index: 0; user-select: none;
+  }
+  .hero-tag { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); font-weight: 500; margin-bottom: 1.2rem; }
+  .hero-title { font-family: var(--ff-display); font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1.05; color: var(--charcoal); margin-bottom: 1.5rem; position: relative; z-index: 1; }
+  .hero-title em { color: var(--rose); font-style: italic; display: block; }
+  .hero-desc { font-size: 1rem; color: var(--muted); line-height: 1.7; max-width: 380px; margin-bottom: 2.5rem; font-weight: 300; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: var(--charcoal); color: #fff;
+    padding: 0.9rem 2rem; border-radius: 50px;
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    text-decoration: none; transition: background 0.2s, transform 0.2s;
+    width: fit-content;
+  }
+  .btn-primary:hover { background: var(--rose); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    border: 1.5px solid var(--charcoal); color: var(--charcoal);
+    padding: 0.85rem 1.8rem; border-radius: 50px;
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    text-decoration: none; transition: all 0.2s; width: fit-content;
+  }
+  .btn-outline:hover { background: var(--charcoal); color: #fff; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-visual {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #F9D0DC 0%, #F5ECD7 60%, #FFF0F4 100%);
+  }
+  /* Replace these URLs with your own .png files */
+  .hero-img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .hero-visual:hover .hero-img { transform: scale(1.03); }
+  .hero-badge {
+    position: absolute; bottom: 2.5rem; left: -1rem;
+    background: #fff; border-radius: 16px; padding: 1rem 1.5rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-badge-dot { width: 10px; height: 10px; background: var(--rose); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+  .hero-badge-text { font-size: 0.8rem; font-weight: 500; }
+  .hero-badge-text span { display: block; font-size: 0.7rem; color: var(--muted); font-weight: 300; }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap { background: var(--charcoal); padding: 0.9rem 0; overflow: hidden; white-space: nowrap; }
+  .marquee-track { display: inline-flex; gap: 3rem; animation: marquee 20s linear infinite; }
+  .marquee-track span { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 400; }
+  .marquee-track .dot { color: var(--gold); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── CATEGORIES ── */
+  section { padding: 5rem 6vw; }
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .section-tag { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); font-weight: 500; margin-bottom: 0.7rem; }
+  .section-title { font-family: var(--ff-display); font-size: clamp(2rem, 3.5vw, 3.2rem); color: var(--charcoal); line-height: 1.15; }
+  .section-title em { color: var(--rose); font-style: italic; }
+
+  .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+  .cat-card {
+    position: relative; overflow: hidden; border-radius: 20px; aspect-ratio: 3/4;
+    cursor: pointer;
+  }
+  .cat-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+  .cat-card:hover img { transform: scale(1.07); }
+  .cat-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(28,28,30,0.7) 0%, transparent 50%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.5rem;
+  }
+  .cat-name { font-family: var(--ff-display); font-size: 1.3rem; color: #fff; font-style: italic; margin-bottom: 0.4rem; }
+  .cat-count { font-size: 0.75rem; color: rgba(255,255,255,0.65); letter-spacing: 0.1em; text-transform: uppercase; }
+  .cat-arrow {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1rem;
+    transform: translateY(8px); opacity: 0; transition: all 0.3s;
+  }
+  .cat-card:hover .cat-arrow { opacity: 1; transform: translateY(0); }
+
+  /* ── PRODUCTS ── */
+  .products-section { background: var(--rose-pale); border-radius: 32px; margin: 0 2vw; }
+  .prod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .prod-card {
+    background: #fff; border-radius: 20px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .prod-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(232,81,122,0.12); }
+  .prod-img-wrap { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+  .prod-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+  .prod-card:hover .prod-img-wrap img { transform: scale(1.05); }
+  .prod-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--rose); color: #fff;
+    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 50px; font-weight: 500;
+  }
+  .prod-badge.gold { background: var(--gold); }
+  .prod-wish {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.9);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .prod-wish:hover { background: var(--rose-light); }
+  .prod-info { padding: 1.2rem 1.4rem; }
+  .prod-brand { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .prod-name { font-family: var(--ff-display); font-size: 1.05rem; color: var(--charcoal); margin-bottom: 0.7rem; line-height: 1.3; }
+  .prod-footer { display: flex; align-items: center; justify-content: space-between; }
+  .prod-price { font-size: 1.05rem; font-weight: 500; color: var(--charcoal); }
+  .prod-price s { font-size: 0.85rem; color: var(--muted); margin-right: 0.4rem; font-weight: 300; }
+  .prod-add {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--charcoal); color: #fff; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; transition: background 0.2s, transform 0.15s;
+  }
+  .prod-add:hover { background: var(--rose); transform: scale(1.1); }
+  .prod-colors { display: flex; gap: 6px; margin-bottom: 0.7rem; }
+  .color-dot { width: 14px; height: 14px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+  .color-dot:hover, .color-dot.active { border-color: var(--charcoal); }
+
+  /* ── BANNER ── */
+  .banner {
+    margin: 0 2vw; border-radius: 32px; overflow: hidden;
+    background: linear-gradient(120deg, #1C1C1E 60%, #3a2020 100%);
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+  }
+  .banner-text { padding: 5rem 5vw; display: flex; flex-direction: column; justify-content: center; }
+  .banner-tag { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .banner-title { font-family: var(--ff-display); font-size: clamp(2.2rem, 4vw, 3.8rem); color: #fff; line-height: 1.1; margin-bottom: 1.2rem; }
+  .banner-title em { color: var(--gold); font-style: italic; display: block; }
+  .banner-desc { font-size: 0.95rem; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 2rem; max-width: 340px; font-weight: 300; }
+  .btn-gold {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--gold); color: var(--charcoal);
+    padding: 0.9rem 2rem; border-radius: 50px;
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    text-decoration: none; transition: all 0.2s; width: fit-content;
+  }
+  .btn-gold:hover { background: #e8c07e; transform: translateY(-2px); }
+  .banner-visual { position: relative; overflow: hidden; }
+  .banner-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { background: var(--gold-light); border-radius: 32px; margin: 0 2vw; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .testi-card { background: #fff; border-radius: 20px; padding: 2rem; }
+  .stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testi-text { font-size: 0.92rem; color: var(--charcoal); line-height: 1.7; font-weight: 300; font-style: italic; margin-bottom: 1.5rem; font-family: var(--ff-display); }
+  .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+  .testi-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: var(--rose-light); flex-shrink: 0; }
+  .testi-name { font-size: 0.85rem; font-weight: 500; }
+  .testi-loc { font-size: 0.75rem; color: var(--muted); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter { text-align: center; padding: 6rem 6vw; }
+  .newsletter .section-title { margin-bottom: 1rem; }
+  .newsletter p { color: var(--muted); font-size: 0.95rem; font-weight: 300; margin-bottom: 2rem; }
+  .nl-form { display: flex; gap: 0; max-width: 480px; margin: 0 auto; border-radius: 50px; overflow: hidden; border: 1.5px solid rgba(28,28,30,0.15); }
+  .nl-form input { flex: 1; border: none; padding: 1rem 1.5rem; font-size: 0.9rem; outline: none; background: #fff; font-family: var(--ff-body); color: var(--charcoal); }
+  .nl-form input::placeholder { color: var(--muted); }
+  .nl-form button { background: var(--rose); color: #fff; border: none; padding: 1rem 1.8rem; cursor: pointer; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; font-family: var(--ff-body); transition: background 0.2s; }
+  .nl-form button:hover { background: #d43d6a; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--charcoal); color: rgba(255,255,255,0.65); padding: 4rem 6vw 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand { font-family: var(--ff-display); font-size: 1.5rem; color: #fff; font-style: italic; margin-bottom: 1rem; }
+  .footer-brand span { color: var(--rose); }
+  .footer-desc { font-size: 0.85rem; line-height: 1.7; font-weight: 300; max-width: 240px; }
+  .footer-col h4 { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 1.2rem; font-weight: 500; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.85rem; font-weight: 300; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--rose); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+  /* ── PLACEHOLDER IMAGES ── */
+  /* These divs act as image placeholders. Replace with <img src="yourfile.png"> */
+  .img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; font-size: 0.75rem; color: rgba(0,0,0,0.35); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .img-placeholder svg { opacity: 0.3; }
+
+  /* Fade-in animation */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Lumi<span>è</span>re</a>
+  <ul class="nav-links">
+    <li><a href="#">New In</a></li>
+    <li><a href="#">Clothing</a></li>
+    <li><a href="#">Accessories</a></li>
+    <li><a href="#">Sale</a></li>
+  </ul>
+  <div class="nav-right">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <svg class="nav-icon cart-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text fade-up">
+    <p class="hero-tag">Spring / Summer 2025 Collection</p>
+    <h1 class="hero-title">Dress for <em>your story</em></h1>
+    <p class="hero-desc">Curated fashion for the woman who moves through life with grace, confidence, and an eye for beauty.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#">Shop collection →</a>
+      <a class="btn-outline" href="#">Lookbook</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <!-- REPLACE: <img src="hero-model.png" alt="Hero" class="hero-img"> -->
+    <div class="img-placeholder" style="background: linear-gradient(135deg, #F9D0DC, #F5ECD7);">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      hero-model.png
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <div class="hero-badge-text">New arrivals <span>Updated daily</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Free shipping over $80</span><span class="dot">✦</span>
+    <span>New collection — SS25</span><span class="dot">✦</span>
+    <span>Sustainable fabrics</span><span class="dot">✦</span>
+    <span>Returns within 30 days</span><span class="dot">✦</span>
+    <span>Exclusive member discounts</span><span class="dot">✦</span>
+    <span>Free shipping over $80</span><span class="dot">✦</span>
+    <span>New collection — SS25</span><span class="dot">✦</span>
+    <span>Sustainable fabrics</span><span class="dot">✦</span>
+    <span>Returns within 30 days</span><span class="dot">✦</span>
+    <span>Exclusive member discounts</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section>
+  <div class="section-header fade-up">
+    <p class="section-tag">Browse by style</p>
+    <h2 class="section-title">Shop <em>categories</em></h2>
+  </div>
+  <div class="cat-grid fade-up">
+    <!-- REPLACE img src with your own category images -->
+    <div class="cat-card">
+      <div class="img-placeholder" style="background: linear-gradient(135deg,#F9D0DC,#fff0f4); height:100%;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E8517A" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        dresses.png
+      </div>
+      <div class="cat-overlay">
+        <div class="cat-name">Dresses</div>
+        <div class="cat-count">124 pieces</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="cat-card">
+      <div class="img-placeholder" style="background: linear-gradient(135deg,#F5ECD7,#fff8ee); height:100%;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        tops.png
+      </div>
+      <div class="cat-overlay">
+        <div class="cat-name">Tops & Blouses</div>
+        <div class="cat-count">98 pieces</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="cat-card">
+      <div class="img-placeholder" style="background: linear-gradient(135deg,#e8f0fa,#dde8f8); height:100%;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#378ADD" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        accessories.png
+      </div>
+      <div class="cat-overlay">
+        <div class="cat-name">Accessories</div>
+        <div class="cat-count">76 pieces</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="cat-card">
+      <div class="img-placeholder" style="background: linear-gradient(135deg,#edf5e8,#dff0d6); height:100%;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#639922" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        shoes.png
+      </div>
+      <div class="cat-overlay">
+        <div class="cat-name">Shoes</div>
+        <div class="cat-count">52 pieces</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="products-section">
+  <div class="section-header fade-up">
+    <p class="section-tag">Handpicked for you</p>
+    <h2 class="section-title">Trending <em>now</em></h2>
+  </div>
+  <div class="prod-grid fade-up">
+
+    <!-- Product 1 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <!-- REPLACE: <img src="product-1.png" alt="Floral Midi Dress"> -->
+        <div class="img-placeholder" style="background: linear-gradient(160deg,#F9D0DC,#fff0f4); height:100%;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E8517A" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          product-1.png
+        </div>
+        <span class="prod-badge">New</span>
+        <div class="prod-wish">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8517A" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-brand">Lumière Studio</p>
+        <p class="prod-name">Floral Midi Dress</p>
+        <div class="prod-colors">
+          <div class="color-dot active" style="background:#E8517A;"></div>
+          <div class="color-dot" style="background:#C9A96E;"></div>
+          <div class="color-dot" style="background:#1C1C1E;"></div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-price"><s>$129</s> $89</span>
+          <button class="prod-add">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="img-placeholder" style="background: linear-gradient(160deg,#F5ECD7,#fff8ee); height:100%;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          product-2.png
+        </div>
+        <span class="prod-badge gold">Bestseller</span>
+        <div class="prod-wish">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8517A" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-brand">Lumière Atelier</p>
+        <p class="prod-name">Silk Knot Handbag</p>
+        <div class="prod-colors">
+          <div class="color-dot active" style="background:#C9A96E;"></div>
+          <div class="color-dot" style="background:#E8517A;"></div>
+          <div class="color-dot" style="background:#fff; border:1.5px solid #ccc;"></div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-price">$145</span>
+          <button class="prod-add">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="img-placeholder" style="background: linear-gradient(160deg,#ede8f5,#e4ddf0); height:100%;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7F77DD" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          product-3.png
+        </div>
+        <span class="prod-badge">Sale −30%</span>
+        <div class="prod-wish">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8517A" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-brand">Lumière Essentials</p>
+        <p class="prod-name">Lavender Linen Blouse</p>
+        <div class="prod-colors">
+          <div class="color-dot active" style="background:#7F77DD;"></div>
+          <div class="color-dot" style="background:#E8517A;"></div>
+          <div class="color-dot" style="background:#C9A96E;"></div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-price"><s>$98</s> $68</span>
+          <button class="prod-add">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="img-placeholder" style="background: linear-gradient(160deg,#edf5e8,#dff0d6); height:100%;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#639922" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          product-4.png
+        </div>
+        <div class="prod-wish">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8517A" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-brand">Lumière Atelier</p>
+        <p class="prod-name">Sage Wrap Skirt</p>
+        <div class="prod-colors">
+          <div class="color-dot active" style="background:#639922;"></div>
+          <div class="color-dot" style="background:#1C1C1E;"></div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-price">$79</span>
+          <button class="prod-add">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="img-placeholder" style="background: linear-gradient(160deg,#fce8e8,#fad4d4); height:100%;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E24B4A" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          product-5.png
+        </div>
+        <span class="prod-badge">New</span>
+        <div class="prod-wish">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8517A" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-brand">Lumière Studio</p>
+        <p class="prod-name">Rose Beaded Necklace</p>
+        <div class="prod-colors">
+          <div class="color-dot active" style="background:#E24B4A;"></div>
+          <div class="color-dot" style="background:#C9A96E;"></div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-price">$55</span>
+          <button class="prod-add">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 6 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="img-placeholder" style="background: linear-gradient(160deg,#e6f1fb,#d0e5f7); height:100%;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#378ADD" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          product-6.png
+        </div>
+        <span class="prod-badge gold">Bestseller</span>
+        <div class="prod-wish">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8517A" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-brand">Lumière Essentials</p>
+        <p class="prod-name">Sky Linen Wide Trousers</p>
+        <div class="prod-colors">
+          <div class="color-dot active" style="background:#378ADD;"></div>
+          <div class="color-dot" style="background:#fff; border:1.5px solid #ccc;"></div>
+          <div class="color-dot" style="background:#1C1C1E;"></div>
+        </div>
+        <div class="prod-footer">
+          <span class="prod-price">$112</span>
+          <button class="prod-add">+</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<section style="padding: 3rem 0;">
+  <div class="banner fade-up">
+    <div class="banner-text">
+      <p class="banner-tag">Limited offer · Ends Sunday</p>
+      <h2 class="banner-title">Up to 40% off <em>summer sale</em></h2>
+      <p class="banner-desc">Our biggest seasonal sale is here. Discover reduced prices across dresses, accessories, and more — for a limited time only.</p>
+      <a class="btn-gold" href="#">Shop the sale →</a>
+    </div>
+    <div class="banner-visual">
+      <!-- REPLACE: <img src="sale-banner.png" alt="Sale"> -->
+      <div class="img-placeholder" style="background: linear-gradient(135deg,#3a2020,#2a1a30); height:100%; color: rgba(255,255,255,0.35);">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,110,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        sale-banner.png
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-header fade-up">
+    <p class="section-tag">What our customers say</p>
+    <h2 class="section-title">Loved by <em>thousands</em></h2>
+  </div>
+  <div class="testi-grid fade-up">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"The quality is absolutely stunning. Every piece feels crafted with love — I get compliments every time I wear anything from Lumière."</p>
+      <div class="testi-author">
+        <!-- REPLACE: <img src="avatar-1.png" class="testi-avatar"> -->
+        <div class="testi-avatar" style="background: var(--rose-light); display:flex; align-items:center; justify-content:center; font-family: var(--ff-display); font-size:1rem; color: var(--rose);">S</div>
+        <div><p class="testi-name">Sara M.</p><p class="testi-loc">Cairo, Egypt</p></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Finally a brand that understands feminine elegance. The floral dress fit perfectly and the packaging was gorgeous — felt like a gift to myself."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background: #F5ECD7; display:flex; align-items:center; justify-content:center; font-family: var(--ff-display); font-size:1rem; color: var(--gold);">L</div>
+        <div><p class="testi-name">Layla K.</p><p class="testi-loc">Dubai, UAE</p></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Shipping was fast, the fabrics are so soft, and the colors look exactly like the photos. My new go-to for all things fashion!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background: #ede8f5; display:flex; align-items:center; justify-content:center; font-family: var(--ff-display); font-size:1rem; color: #7F77DD;">N</div>
+        <div><p class="testi-name">Nour A.</p><p class="testi-loc">Beirut, Lebanon</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter fade-up">
+  <p class="section-tag">Join the community</p>
+  <h2 class="section-title">Get early <em>access</em></h2>
+  <p>Be the first to know about new arrivals, exclusive drops, and styling tips.</p>
+  <div class="nl-form">
+    <input type="email" placeholder="Your email address" />
+    <button>Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <p class="footer-brand">Lumi<span>è</span>re</p>
+      <p class="footer-desc">Curated fashion for the modern woman — soft, feminine, and beautifully crafted.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">New In</a></li>
+        <li><a href="#">Dresses</a></li>
+        <li><a href="#">Accessories</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Size guide</a></li>
+        <li><a href="#">Contact us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Follow us</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Pinterest</a></li>
+        <li><a href="#">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Lumière. All rights reserved.</span>
+    <span>Privacy · Terms · Cookies</span>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+document.querySelectorAll('.prod-add').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.textContent = '✓';
+    this.style.background = '#639922';
+    setTimeout(() => { this.textContent = '+'; this.style.background = ''; }, 1200);
+  });
+});
+
+document.querySelectorAll('.color-dot').forEach(dot => {
+  dot.addEventListener('click', function() {
+    this.closest('.prod-colors').querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
